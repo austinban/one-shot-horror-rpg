@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GM Reference — Room-by-Room Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211d18;
+    --paper:#eee3c6;
+    --paper-dark:#ddceA4;
+    --paper-shadow:#c9b98a;
+    --pumpkin:#b5541e;
+    --blood:#7d2020;
+    --moss:#4c5a37;
+    --moss-light:#7c8f5c;
+    --slate:#3d5566;
+    --plum:#5c3a52;
+  }
+
+  *{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+
+  body{
+    margin:0;
+    padding:24px;
+    background:#3a3227;
+    font-family:'Courier Prime',monospace;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+
+  .toolbar{
+    position:fixed;
+    top:14px; right:14px;
+    display:flex; gap:8px;
+    z-index:50;
+  }
+  .toolbar button{
+    font-family:'Courier Prime',monospace;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:8px 12px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{ background:var(--pumpkin); color:var(--paper); }
+
+  .sheet{
+    width:8.5in;
+    min-height:11in;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(0,0,0,0.05), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(0,0,0,0.06), transparent 45%);
+    position:relative;
+    padding:0.42in 0.48in 0.4in 0.48in;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  }
+
+  .tape{
+    position:absolute;
+    width:70px; height:26px;
+    background:rgba(230,225,205,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+  }
+  .tape.tl{ top:-8px; left:36px; transform:rotate(-8deg);}
+  .tape.tr{ top:-6px; right:40px; transform:rotate(6deg);}
+
+  header.title-block{
+    text-align:center;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow{
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size:10.5px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--blood);
+  }
+  h1{
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size:26px;
+    margin:2px 0 4px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+  }
+  .subtitle{
+    font-size:11px;
+    font-style:italic;
+    color:#4a4438;
+  }
+
+  .intro{
+    font-size:10.5px;
+    line-height:1.55;
+    background:var(--paper-dark);
+    border-left:3px solid var(--pumpkin);
+    padding:8px 10px;
+    margin-bottom:16px;
+  }
+  .intro b{ color:var(--blood); }
+
+  .room{
+    margin-bottom:14px;
+    padding-bottom:10px;
+    border-bottom:1px dashed var(--paper-shadow);
+  }
+  .room:last-child{ border-bottom:none; }
+
+  .room-label{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    background:var(--ink);
+    color:var(--paper);
+    display:inline-block;
+    padding:2px 9px;
+    margin-bottom:5px;
+  }
+  .room-label .num{ color:var(--pumpkin); margin-right:6px; }
+
+  .vibe{
+    font-size:10.5px;
+    font-style:italic;
+    color:#4a4438;
+    margin:0 0 6px;
+    line-height:1.45;
+  }
+
+  .obstacle{
+    font-size:10.5px;
+    line-height:1.5;
+    margin-bottom:6px;
+  }
+  .obstacle b{ font-family:'Special Elite','Courier New',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--blood); }
+
+  .solutions{ list-style:none; margin:0 0 6px; padding:0; }
+  .solutions li{
+    font-size:10px;
+    line-height:1.45;
+    padding:2px 0 2px 4px;
+    display:flex;
+    gap:6px;
+    align-items:baseline;
+  }
+  .tag{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:8.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    padding:1.5px 6px;
+    border-radius:3px;
+    color:var(--paper);
+    flex:0 0 auto;
+    white-space:nowrap;
+  }
+  .tag.brains{ background:var(--slate); }
+  .tag.brawns{ background:var(--blood); }
+  .tag.beauty{ background:var(--pumpkin); }
+  .tag.backflips{ background:var(--plum); }
+  .tag.common-sense{ background:var(--moss); }
+  .tag.wildcard{ background:var(--moss-light); color:var(--ink); }
+
+  .complication{
+    font-size:9.5px;
+    line-height:1.45;
+    color:#4a4438;
+    background:rgba(125,32,32,0.08);
+    border-left:2px solid var(--blood);
+    padding:4px 8px;
+    margin-top:4px;
+  }
+  .complication b{ color:var(--blood); }
+
+  footer{
+    margin-top:6px;
+    text-align:center;
+    font-size:9px;
+    letter-spacing:.05em;
+    color:#5a5240;
+    border-top:1px solid var(--paper-shadow);
+    padding-top:5px;
+  }
+
+  @media print{
+    body{ background:none; padding:0; }
+    .toolbar{ display:none; }
+    .sheet{ box-shadow:none; width:100%; min-height:0; }
+    @page{ size:letter; margin:0.25in; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <button onclick="window.print()">🖨️ Print / Save PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="tape tl"></div>
+  <div class="tape tr"></div>
+
+  <header class="title-block">
+    <div class="eyebrow">GM Eyes Only · Front Office Archive</div>
+    <h1>Room-by-Room Guide</h1>
+    <div class="subtitle">A linear chain of rooms, each with a door on the far side and more than one way to reach it.</div>
+  </header>
+
+  <div class="intro">
+    <b>The Barker.</b> Since the cast is thin on NPCs, one voice carries the whole dimension — a Ringmaster/Barker who's never physically present, only heard through speakers, funhouse mirrors, and cue cards. He taunts, lies, and occasionally helps if it amuses him. He shows himself, in person, only at the very end.
+  </div>
+
+  <section class="room">
+    <div class="room-label"><span class="num">0</span>Cold Open — The Hayride</div>
+    <p class="vibe">Mundane wagon ride goes wrong: the tractor dies in fog, the scare-actor scarecrows are standing in formation facing the wagon, and the trail behind them is gone. The haunted house is the only structure still visible.</p>
+    <p class="obstacle">No obstacle — this is the hook that gets them walking toward the door. Nothing to solve, just somewhere to go.</p>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">1</span>The Lobby That Forgot How To Be a Lobby</div>
+    <p class="vibe">Ticket booth, gift shop shelves — except the plush toys have real teeth and the exit sign points at a wall.</p>
+    <p class="obstacle"><b>Obstacle:</b> the only way forward is a door sealed by a thin, fleshy membrane that flinches from touch but not sound.</p>
+    <ul class="solutions">
+      <li><span class="tag brains">Brains / AV Club</span>Recognize the membrane behaves like an eardrum — scream, clap, or blast music at it and it recoils open.</li>
+      <li><span class="tag brawns">Brawns</span>Tear straight through — works, but triggers a Deep Cut (Bleeding stack).</li>
+      <li><span class="tag common-sense">Common Sense / Jaded</span>Notice the "employees only" door beside it was never sealed at all — just unnoticed.</li>
+      <li><span class="tag beauty">Beauty / Class Clown / Theater Kid</span>Perform something so compelling the membrane "listens" and peels back on its own.</li>
+    </ul>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">2</span>The Hall of Mirrors</div>
+    <p class="vibe">Every mirror shows a slightly wrong version of the viewer — aged, injured, or doing something they haven't done yet.</p>
+    <p class="obstacle"><b>Obstacle:</b> one mirror is the real exit; the rest are dead ends that trap whoever steps through.</p>
+    <ul class="solutions">
+      <li><span class="tag brains">Brains</span>The true exit is the only mirror where the reflection is out of sync with them by half a second.</li>
+      <li><span class="tag backflips">Backflips / Skaterboy</span>Vault along the mirror frames without touching the glass to reach the far one blind.</li>
+      <li><span class="tag common-sense">Common Sense / Eagle Scout</span>Mark reflections (chalk, tape) to eliminate mirrors by process of elimination instead of guessing.</li>
+      <li><span class="tag beauty">Beauty / Early Bloomer</span>Their reflection is the only one that visibly wants them to come closer — trust vanity over logic.</li>
+    </ul>
+    <div class="complication"><b>Complication:</b> stepping into a wrong mirror triggers Frozen, or Isolated if they're alone when it happens.</div>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">3</span>The Butcher's Pantry</div>
+    <p class="vibe">A kitchen/meat-locker smell room. The next door is behind a hanging curtain of meat hooks and carcasses — obviously fake haunted-house props, except one is real, and it's watching.</p>
+    <p class="obstacle"><b>Obstacle:</b> get through the curtain without confronting what's actually in it (Squeamish-flavored gauntlet).</p>
+    <ul class="solutions">
+      <li><span class="tag brawns">Brawns</span>Muscle straight through the hooks, risking a Snag (treat as Deep Cut) but fast.</li>
+      <li><span class="tag brains">Chem Whiz</span>Identify the preservative smell that reveals which "carcass" is the fake threat vs. the real one.</li>
+      <li><span class="tag common-sense">Common Sense / Lifeguard</span>Methodically check for a pulse/breathing before committing to a path — slow but safe.</li>
+      <li><span class="tag wildcard">Wildcard / Class Clown</span>Loudly narrate the room like a cooking show to keep morale up and power through without looking closely — avoids the Squeamish trigger by not truly confronting it.</li>
+    </ul>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">4</span>Clown Alley</div>
+    <p class="vibe">A funhouse corridor of identical clown mannequins. One is real and will follow at the exact same slow pace as the party unless someone stops moving to check.</p>
+    <p class="obstacle"><b>Obstacle:</b> this is a tension room, not a combat room — the threat is psychological, not physical.</p>
+    <ul class="solutions">
+      <li><span class="tag brains">Brains</span>Count/pattern-match the mannequins to spot the one out of sequence.</li>
+      <li><span class="tag backflips">Backflips</span>Create distance fast enough that pace-matching becomes impossible, then double back once ahead.</li>
+      <li><span class="tag beauty">Beauty / Theater Kid</span>Mimic the clown's exact walk and blend in as one of them to slip past unnoticed.</li>
+      <li><span class="tag common-sense">Common Sense</span>Just don't stop moving, ever, no matter what — bulldoze through the dread with discipline.</li>
+    </ul>
+    <div class="complication"><b>Complication:</b> stopping to check is a natural spot for a Coward or Insomniac Flaw to trigger.</div>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">5</span>The Bone Orchard</div>
+    <p class="vibe">The hayride field again, except now endless and lit by a moon that doesn't move. Scarecrows are posted at regular intervals, each one a landmark.</p>
+    <p class="obstacle"><b>Obstacle:</b> the exit is one specific scarecrow, but they all look identical from a distance.</p>
+    <ul class="solutions">
+      <li><span class="tag common-sense">Common Sense / Eagle Scout</span>Navigate by a consistent detail (wind direction, crow behavior, footprints) instead of sight.</li>
+      <li><span class="tag brains">Brains / AV Club</span>Use a phone compass/flashlight trick to detect the one "scarecrow" that's actually a broadcasting prop — the Barker's mouthpiece.</li>
+      <li><span class="tag brawns">Brawns / Hooligan</span>Knock scarecrows down one by one until the field "notices" and reacts, revealing the real exit by process of elimination — loud, risky, may draw something.</li>
+      <li><span class="tag wildcard">Wildcard / Lucky</span>Let a player narrate a hunch and just be right — no roll, just conviction.</li>
+    </ul>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">6</span>The Chancel</div>
+    <p class="vibe">A ritual chamber — pews facing an altar. The final door is behind it, but the altar demands a trade: something be left behind before it opens.</p>
+    <p class="obstacle"><b>Obstacle:</b> an item, a memory, or a lie admitted aloud — the altar wants something given up.</p>
+    <ul class="solutions">
+      <li><span class="tag brains">Brains</span>Find the loophole in the ritual's wording — it wants something given up, not necessarily something valuable.</li>
+      <li><span class="tag beauty">Beauty / Class Clown</span>Talk the room into accepting a performance or confession as the trade instead of an object.</li>
+      <li><span class="tag common-sense">Common Sense</span>Sacrifice a prop/decoy item deliberately brought along earlier — rewards foresight from Rooms 1–3.</li>
+    </ul>
+    <div class="complication"><b>Complication:</b> if nobody's willing to give anything up, this is a natural spot for Despair or Grief-Struck to trigger instead of a hard fail.</div>
+  </section>
+
+  <section class="room">
+    <div class="room-label"><span class="num">7</span>Finale — The Threshold Home</div>
+    <p class="vibe">The exit door is real, but the Barker finally shows himself here — not as a fight, but as a final negotiation/chase.</p>
+    <p class="obstacle"><b>Obstacle:</b> no new attribute gate. Every earlier room's choice — what they left in the Chancel, who's Bleeding, who's Overwhelmed — determines how hard this is. Let accumulated Statuses/Injuries pay off mechanically instead of adding a new puzzle.</p>
+  </section>
+
+  <footer>GM eyes only. Don't let the players see this page.</footer>
+</div>
+
+</body>
+</html>
