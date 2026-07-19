@@ -215,6 +215,11 @@
     color:var(--paper);
     font-weight:700;
   }
+  .tag.vote{
+    background:var(--moss);
+    color:var(--paper);
+    font-weight:700;
+  }
   .game-vibe{
     font-size:9.5px;
     font-style:italic;
@@ -351,15 +356,42 @@
   </section>
 
   <section class="room">
-    <div class="room-label"><span class="num">5</span>The Bone Orchard</div>
-    <p class="vibe">The hayride field again, except now endless and lit by a moon that doesn't move. Scarecrows are posted at regular intervals, each one a landmark.</p>
-    <p class="obstacle"><b>Obstacle:</b> the exit is one specific scarecrow, but they all look identical from a distance.</p>
-    <ul class="solutions">
-      <li><span class="tag common-sense">Common Sense / Eagle Scout</span>Navigate by a consistent detail (wind direction, crow behavior, footprints) instead of sight.</li>
-      <li><span class="tag brains">Brains / AV Club</span>Use a phone compass/flashlight trick to detect the one "scarecrow" that's actually a broadcasting prop — the Barker's mouthpiece.</li>
-      <li><span class="tag brawns">Brawns / Hooligan</span>Knock scarecrows down one by one until the field "notices" and reacts, revealing the real exit by process of elimination — loud, risky, may draw something.</li>
-      <li><span class="tag wildcard">Wildcard / Lucky</span>Let a player narrate a hunch and just be right — no roll, just conviction.</li>
-    </ul>
+    <div class="room-label"><span class="num">5</span>The Talent Show</div>
+    <p class="vibe">Past the tent, a narrow hallway dead-ends into a cramped prep room — cracked mirrors, a costume rack of ill-fitting outfits, a call sheet with the party's names already on it in handwriting that isn't theirs.</p>
+    <div class="intro"><b>The Usher.</b> A female clown in smudged greasepaint meets them here, both eyes drifting slightly out of sync, never quite settling on whoever she's talking to. She explains the rules like it's the most normal thing in the world: they're on next, the judges decide who leaves, and the trapdoor behind the judges' table only opens for an act that wins them over.</div>
+    <p class="obstacle"><b>Obstacle:</b> onstage, a panel of three bizarre judges sits behind the table. The trapdoor stays sealed until at least two of the three approve — and each judge wants something different.</p>
+
+    <div class="game">
+      <div class="game-title"><span class="name">The Professor</span><span class="tag vote">Vote 1</span></div>
+      <p class="game-vibe">Stitched together from book pages and rulers, monocle screwed on sideways. Wants proof of cleverness.</p>
+      <ul class="solutions">
+        <li><span class="tag brains">Brains</span>Solve or explain something clever on the spot — a riddle, a trick, a walkthrough of how an earlier room's puzzle actually worked.</li>
+        <li><span class="tag brains">Movie Buff / AV Club</span>Recreate a slick trick or bit of stagecraft borrowed wholesale from a movie — he applauds the reference.</li>
+        <li><span class="tag common-sense">Common Sense</span>Point out the contradiction in his own scoring rubric — he respects being correctly argued with more than being entertained.</li>
+      </ul>
+    </div>
+
+    <div class="game">
+      <div class="game-title"><span class="name">The Starlet</span><span class="tag vote">Vote 2</span></div>
+      <p class="game-vibe">An eyeless, glittering mannequin obsessed with elegance and drama. Wants a show, not a skill.</p>
+      <ul class="solutions">
+        <li><span class="tag beauty">Beauty / Theater Kid</span>A full dramatic number — monologue, song, dance — sold with total commitment.</li>
+        <li><span class="tag beauty">Dancing</span>A genuine dance number wins her over on technique alone.</li>
+        <li><span class="tag wildcard">Class Clown</span>Lean into an exaggerated comedy bit instead of grace — she rewards commitment to a bit just as much as elegance.</li>
+      </ul>
+    </div>
+
+    <div class="game">
+      <div class="game-title"><span class="name">The Wreck</span><span class="tag vote">Vote 3</span></div>
+      <p class="game-vibe">Hulking, scarred, missing an arm. Wants danger, spectacle, a little pain.</p>
+      <ul class="solutions">
+        <li><span class="tag brawns">Brawns</span>A feat of real strength — breaking, lifting, or throwing something the room clearly doesn't want moved.</li>
+        <li><span class="tag backflips">Backflips / Skaterboy</span>A dangerous acrobatic stunt, the riskier the better.</li>
+        <li><span class="tag wildcard">Explosives / Hooligan</span>A loud, dangerous flourish — thrilling if it works, worth an Injury roll if it doesn't.</li>
+      </ul>
+    </div>
+
+    <div class="complication"><b>Complication:</b> failing to win a majority doesn't end the act — the Usher just says "again" and the show restarts, colder and stranger each time. Enough Brawns can force the trapdoor without any votes, but doing so turns every judge and the dead audience against the party at once — a much bigger Overwhelmed than skipping any other room's puzzle.</div>
   </section>
 
   <section class="room">
