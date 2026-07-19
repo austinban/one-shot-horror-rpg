@@ -171,6 +171,7 @@
   .tag.backflips{ background:var(--plum); }
   .tag.common-sense{ background:var(--moss); }
   .tag.wildcard{ background:var(--moss-light); color:var(--ink); }
+  .tag.hidden{ background:var(--paper); color:var(--ink); border:1.5px dashed var(--ink); }
 
   .complication{
     font-size:9.5px;
@@ -322,10 +323,12 @@
         <li><span class="tag brawns">Brawns</span>Tip the whole pond over and let the water — and ducks — spill onto the floor, then grab the right one.</li>
         <li><span class="tag beauty">Beauty / Early Bloomer</span>The ducks turn to face whoever seems friendliest — coax the marked one over instead of chasing it.</li>
         <li><span class="tag brains">Chem Whiz</span>Notice the water's unnaturally still because of an additive, and drain or neutralize it to force every duck to the surface.</li>
+        <li><span class="tag hidden">Hidden</span>Underneath the pond is a floor grate just wide enough to crawl through, leading straight under the exit door — skips all three keys entirely, but only if someone thinks to check under the water.</li>
       </ul>
     </div>
 
     <div class="complication"><b>Complication:</b> failing a game doesn't lock the party out — it just costs a scene and the Barker gets a little nastier over the speakers. As always, enough Brawns can skip the room entirely by tearing the door off its frame instead of collecting all three keys — messier, and worth an Injury roll.</div>
+    <div class="secret"><b>Secret:</b> underneath each stall counter is a small brass plaque engraved with the name of whoever "won" that game last — nobody in the party. A fourth plaque is screwed into the floor beside the exit door, blank, waiting to be filled in.</div>
     <div class="thread"><b>Sign of him:</b> a half-melted candy wrapper of his favorite brand sits on one of the stall shelves — still warm.</div>
   </section>
 
@@ -355,29 +358,21 @@
       <li><span class="tag brains">Brains / Movie Buff</span>Clock the exact repeating loop and slip through a stagehand's catwalk that the performers habitually ignore.</li>
       <li><span class="tag beauty">Beauty / Theater Kid / Class Clown</span>Join the act as a "volunteer" — sell it well enough that the Ringleader directs the cannon, lift, or trapeze to feature you, launching you toward the tear as part of the show.</li>
       <li><span class="tag wildcard">Wildcard / Explosives / Hooligan</span>Rig something loud to break the loop and open a gap in the crowd — fast, but the noise turns the Ringleader's baton straight at whoever caused it.</li>
+      <li><span class="tag hidden">Hidden</span>The curtained wagon at the ring's edge hides a maintenance ladder leading straight to the tear — climbing it skips the performance entirely, but being caught anywhere near it draws the Ringleader's full attention with no warning shot.</li>
     </ul>
     <div class="complication"><b>Complication:</b> if the Ringleader notices, every performer converges on the interruption at once — a fast, overwhelming grab rather than a fight. Getting caught risks Isolated, or Overwhelmed if other statuses are already active.</div>
-    <div class="thread"><b>Sign of him:</b> the Ringleader keeps glancing toward a curtained wagon at the edge of the ring, like he's guarding something small inside it. It's empty if anyone checks — but not for long.</div>
+    <div class="secret"><b>Secret:</b> the wagon is where the Ringleader keeps his next act prepped before debut. It's empty right now — but the smell inside is unmistakably a child's, not a performer's.</div>
+    <div class="thread"><b>Sign of him:</b> the Ringleader keeps glancing toward the same curtained wagon, like he's guarding something small inside it. It's empty if anyone checks — but not for long.</div>
   </section>
 
   <section class="room">
-    <div class="room-label"><span class="num">4</span>Clown Alley</div>
-    <p class="vibe">A funhouse corridor of identical clown mannequins. One is real and will follow at the exact same slow pace as the party unless someone stops moving to check.</p>
-    <p class="obstacle"><b>Obstacle:</b> this is a tension room, not a combat room — the threat is psychological, not physical.</p>
-    <ul class="solutions">
-      <li><span class="tag brains">Brains</span>Count/pattern-match the mannequins to spot the one out of sequence.</li>
-      <li><span class="tag backflips">Backflips</span>Create distance fast enough that pace-matching becomes impossible, then double back once ahead.</li>
-      <li><span class="tag beauty">Beauty / Theater Kid</span>Mimic the clown's exact walk and blend in as one of them to slip past unnoticed.</li>
-      <li><span class="tag common-sense">Common Sense</span>Just don't stop moving, ever, no matter what — bulldoze through the dread with discipline.</li>
-    </ul>
-    <div class="complication"><b>Complication:</b> stopping to check is a natural spot for a Coward or Insomniac Flaw to trigger.</div>
-  </section>
-
-  <section class="room">
-    <div class="room-label"><span class="num">5</span>The Talent Show</div>
+    <div class="room-label"><span class="num">4</span>The Talent Show</div>
     <p class="vibe">Past the tent, a narrow hallway dead-ends into a cramped prep room — cracked mirrors, a costume rack of ill-fitting outfits, a call sheet with the party's names already on it in handwriting that isn't theirs. One more name is listed below theirs — his — with "up next" written beside it in ink that's still wet.</p>
     <div class="intro"><b>The Usher.</b> A female clown in smudged greasepaint meets them here, both eyes drifting slightly out of sync, never quite settling on whoever she's talking to. She explains the rules like it's the most normal thing in the world: they're on next, the judges decide who leaves, and the trapdoor behind the judges' table only opens for an act that wins them over.</div>
     <p class="obstacle"><b>Obstacle:</b> onstage, a panel of three bizarre judges sits behind the table. The trapdoor stays sealed until at least two of the three approve — and each judge wants something different.</p>
+    <ul class="solutions">
+      <li><span class="tag hidden">Hidden</span>The trapdoor's release lever sits in plain sight under the judges' table — while all three are locked on whoever's performing, someone else can trip it directly, no votes needed, as long as nobody misses their cue to hold attention.</li>
+    </ul>
 
     <div class="game">
       <div class="game-title"><span class="name">The Professor</span><span class="tag vote">Vote 1</span></div>
@@ -421,22 +416,28 @@
   </section>
 
   <section class="room">
-    <div class="room-label"><span class="num">6</span>The Chancel</div>
+    <div class="room-label"><span class="num">5</span>The Chancel</div>
     <p class="vibe">A ritual chamber — pews facing an altar. The final door is behind it, but the altar demands a trade: something be left behind before it opens.</p>
     <p class="obstacle"><b>Obstacle:</b> an item, a memory, or a lie admitted aloud — the altar wants something given up.</p>
     <ul class="solutions">
       <li><span class="tag brains">Brains</span>Find the loophole in the ritual's wording — it wants something given up, not necessarily something valuable.</li>
       <li><span class="tag beauty">Beauty / Class Clown</span>Talk the room into accepting a performance or confession as the trade instead of an object.</li>
       <li><span class="tag common-sense">Common Sense</span>Sacrifice a prop/decoy item deliberately brought along earlier — rewards foresight from Rooms 1–3.</li>
+      <li><span class="tag hidden">Hidden</span>A leftover key, token, or plaque scavenged from an earlier room satisfies the trade just as well as something personal, if anyone thought to keep one — the altar doesn't check where an object came from, only that it's really given up.</li>
     </ul>
     <div class="complication"><b>Complication:</b> if nobody's willing to give anything up, this is a natural spot for Despair or Grief-Struck to trigger instead of a hard fail.</div>
+    <div class="secret"><b>Secret:</b> the altar isn't testing generosity, it's testing whether the party's learned the dimension's rule — everything here demands a trade eventually. Anyone already carrying an active Injury or Status can offer that instead, and the altar accepts it immediately, no argument needed.</div>
     <div class="thread"><b>Sign of him:</b> the altar wants "something you can't get back" — and for the first time, giving something up feels less like a prop and more like it might actually cost them him.</div>
   </section>
 
   <section class="room">
-    <div class="room-label"><span class="num">7</span>Finale — The Threshold Home</div>
+    <div class="room-label"><span class="num">6</span>Finale — The Threshold Home</div>
     <p class="vibe">The exit door is real. So is the Barker, finally showing himself — and he isn't alone. The little brother stands beside him, calm in a way that isn't right, dressed in a miniature version of the Ringleader's coat. He's most of the way through becoming the dimension's newest attraction, the same way the judges and the mirror minions got their start.</p>
     <p class="obstacle"><b>Obstacle:</b> no new attribute gate. This isn't a puzzle to solve, it's a rescue to finish. The Barker wants a trade, an audience, maybe a replacement — not a fight. Every earlier room's choice — what they left in the Chancel, who's Bleeding, who's Overwhelmed, whether anyone got stuck in the Fourth Chair and had to be pulled free — determines how hard this is, and how much of him is still in there to bring home.</p>
+    <div class="secret"><b>Secret:</b> the coat is the binding, not the boy. If it comes off before the Barker finishes whatever he's negotiating for, the transformation partially unravels — the further along he is, the harder the coat fights to stay on.</div>
+    <ul class="solutions">
+      <li><span class="tag hidden">Hidden</span>Getting the coat off him — by force, by trick, or by talking him into taking it off himself — undoes more of what's been done than beating the Barker in a straight fight ever would.</li>
+    </ul>
   </section>
 
   <footer>GM eyes only. Don't let the players see this page.</footer>
