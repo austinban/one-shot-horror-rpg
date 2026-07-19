@@ -1,0 +1,69 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site
+        run: |
+          mkdir -p _site
+          cp -r sheets _site/sheets
+
+          {
+            echo '<!DOCTYPE html>'
+            echo '<html lang="en"><head><meta charset="UTF-8">'
+            echo '<meta name="viewport" content="width=device-width, initial-scale=1">'
+            echo '<title>Reference Sheets</title>'
+            echo '<style>'
+            echo 'body{font-family:Georgia,serif;max-width:640px;margin:48px auto;padding:0 20px;background:#3a3227;color:#eee3c6;}'
+            echo 'h1{font-size:22px;letter-spacing:.04em;border-bottom:2px solid #eee3c6;padding-bottom:10px;}'
+            echo 'ul{line-height:2;padding-left:20px;}'
+            echo 'a{color:#e8b458;text-decoration:none;font-size:17px;}'
+            echo 'a:hover{text-decoration:underline;}'
+            echo 'p.empty{font-style:italic;color:#b3a780;}'
+            echo '</style></head><body>'
+            echo '<h1>Reference Sheets</h1><ul>'
+            if compgen -G "sheets/*.html" > /dev/null; then
+              for f in sheets/*.html; do
+                name=$(basename "$f")
+                title=$(grep -oP '(?<=<title>).*?(?=</title>)' "$f" | head -n1 || true)
+                if [ -z "$title" ]; then title="$name"; fi
+                echo "<li><a href=\"sheets/$name\">$title</a></li>"
+              done
+            else
+              echo '<p class="empty">No sheets yet — add an .html file to sheets/ and push.</p>'
+            fi
+            echo '</ul></body></html>'
+          } > _site/index.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
