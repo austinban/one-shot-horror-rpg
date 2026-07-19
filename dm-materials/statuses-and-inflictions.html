@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GM Reference — Statuses & Inflictions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211d18;
+    --paper:#eee3c6;
+    --paper-dark:#ddceA4;
+    --paper-shadow:#c9b98a;
+    --pumpkin:#b5541e;
+    --blood:#7d2020;
+    --moss:#4c5a37;
+    --moss-light:#7c8f5c;
+  }
+
+  *{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+
+  body{
+    margin:0;
+    padding:24px;
+    background:#3a3227;
+    font-family:'Courier Prime',monospace;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+
+  .toolbar{
+    position:fixed;
+    top:14px; right:14px;
+    display:flex; gap:8px;
+    z-index:50;
+  }
+  .toolbar button{
+    font-family:'Courier Prime',monospace;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:8px 12px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{ background:var(--pumpkin); color:var(--paper); }
+
+  .sheet{
+    width:8.5in;
+    min-height:11in;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(0,0,0,0.05), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(0,0,0,0.06), transparent 45%);
+    position:relative;
+    padding:0.42in 0.48in 0.4in 0.48in;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  }
+
+  .tape{
+    position:absolute;
+    width:70px; height:26px;
+    background:rgba(230,225,205,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+  }
+  .tape.tl{ top:-8px; left:36px; transform:rotate(-8deg);}
+  .tape.tr{ top:-6px; right:40px; transform:rotate(6deg);}
+
+  header.title-block{
+    text-align:center;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow{
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size:10.5px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--blood);
+  }
+  h1{
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size:28px;
+    margin:2px 0 4px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+  }
+  .subtitle{
+    font-size:11px;
+    font-style:italic;
+    color:#4a4438;
+  }
+
+  section{ margin-bottom:16px; }
+
+  .sect-label{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    background:var(--ink);
+    color:var(--paper);
+    display:inline-block;
+    padding:2px 9px;
+    margin-bottom:6px;
+  }
+  .sect-note{
+    font-size:10.5px;
+    line-height:1.5;
+    margin-bottom:8px;
+    color:#4a4438;
+  }
+
+  table.ref{
+    width:100%;
+    border-collapse:collapse;
+    font-size:10px;
+    margin-bottom:4px;
+  }
+  table.ref th{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    text-align:left;
+    padding:3px 6px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  table.ref td{
+    padding:3.5px 6px;
+    border-bottom:1px solid var(--paper-shadow);
+    vertical-align:top;
+    line-height:1.35;
+  }
+  table.ref td.name{ font-weight:700; white-space:nowrap; }
+  table.ref tr:nth-child(even){ background:rgba(0,0,0,0.03); }
+
+  .callout{
+    background:var(--paper-dark);
+    border-left:3px solid var(--pumpkin);
+    padding:8px 10px;
+    font-size:10px;
+    line-height:1.5;
+  }
+  .callout b{ color:var(--blood); }
+
+  .bleed-box{
+    background:rgba(125,32,32,0.1);
+    border:1px solid var(--blood);
+    border-radius:3px;
+    padding:8px 10px;
+    font-size:10px;
+    line-height:1.5;
+    margin-top:6px;
+  }
+  .bleed-box .tag{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--blood);
+    font-weight:700;
+  }
+
+  .design-notes{
+    font-size:10px;
+    line-height:1.55;
+  }
+  .design-notes ul{ margin:4px 0 0 16px; padding:0; }
+  .design-notes li{ margin-bottom:4px; }
+
+  footer{
+    margin-top:10px;
+    text-align:center;
+    font-size:9px;
+    letter-spacing:.05em;
+    color:#5a5240;
+    border-top:1px solid var(--paper-shadow);
+    padding-top:5px;
+  }
+
+  @media print{
+    body{ background:none; padding:0; }
+    .toolbar{ display:none; }
+    .sheet{ box-shadow:none; width:100%; min-height:0; }
+    @page{ size:letter; margin:0.25in; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <button onclick="window.print()">🖨️ Print / Save PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="tape tl"></div>
+  <div class="tape tr"></div>
+
+  <header class="title-block">
+    <div class="eyebrow">GM Eyes Only · Front Office Archive</div>
+    <h1>Statuses &amp; Inflictions</h1>
+    <div class="subtitle">Mechanical, self-contained triggers built around the Major / Minor / Neutral / Weak Spot tiers.</div>
+  </header>
+
+  <section>
+    <div class="sect-label">Injuries</div>
+    <div class="sect-note">Physical, usually from combat or danger — clear when treated or rested.</div>
+    <table class="ref">
+      <tr><th>Injury</th><th>Effect</th><th>Clears When</th></tr>
+      <tr><td class="name">Twisted Ankle</td><td>Downgrade one tier on anything requiring running, climbing, or quick footwork</td><td>Resting a scene, or splinted</td></tr>
+      <tr><td class="name">Concussion</td><td>Downgrade one tier on anything requiring focus/memory/clear thinking</td><td>Sleeping it off, or treated</td></tr>
+      <tr><td class="name">Broken Finger</td><td>Downgrade one tier on anything requiring fine motor control (locks, phones, tools)</td><td>Splinted/taped</td></tr>
+      <tr><td class="name">Deep Cut</td><td>Take 1 Bleeding stack (see below)</td><td>Bandaged (Lifeguard skill auto-clears)</td></tr>
+      <tr><td class="name">Winded</td><td>Lose your bonus die (skill/Minor/Major) on your next physical action</td><td>One full scene passes</td></tr>
+      <tr><td class="name">Burned Hand</td><td>Downgrade one tier on anything using that hand</td><td>Treated, or 1 full scene</td></tr>
+      <tr><td class="name">Bad Fall</td><td>Downgrade one tier on all physical checks until treated</td><td>Rested + treated</td></tr>
+    </table>
+    <div class="bleed-box">
+      <span class="tag">Bleeding</span> — a stacking status, not a one-time injury: each stack forces one extra "roll 2d6, keep the lowest" die into your <b>next</b> physical roll, stacking additively. Bandaging removes all stacks at once.
+    </div>
+  </section>
+
+  <section>
+    <div class="sect-label">Statuses</div>
+    <div class="sect-note">Temporary, often supernatural — cleared by a specific in-fiction action, not just time.</div>
+    <table class="ref">
+      <tr><th>Status</th><th>Effect</th><th>Clears When</th></tr>
+      <tr><td class="name">Terrified</td><td>Downgrade one tier on anything while the source of fear is present/visible</td><td>The source leaves, is dealt with, or hidden from</td></tr>
+      <tr><td class="name">Frozen</td><td>Skip your next action entirely</td><td>Someone else acts to snap you out of it</td></tr>
+      <tr><td class="name">Adrenaline Rush</td><td>Upgrade your next roll one tier</td><td>Used once, then expires</td></tr>
+      <tr><td class="name">Cursed (temp.)</td><td>Once, the GM may force a downgrade on a roll of their choice</td><td>Triggers once, then clears</td></tr>
+      <tr><td class="name">Possessed (brief)</td><td>GM narrates your next action instead of you</td><td>End of the GM's chosen beat</td></tr>
+      <tr><td class="name">Hallucinating</td><td>GM inserts one false detail into the scene you must treat as real</td><td>End of scene, or if disbelieved by another PC</td></tr>
+      <tr><td class="name">Isolated</td><td>Can't receive help/assist actions from other PCs</td><td>Physically reunite with the group</td></tr>
+      <tr><td class="name">Marked</td><td>GM can have something locate you once per session, no roll needed</td><td>Session ends, or the mark is removed in-fiction</td></tr>
+      <tr><td class="name">Numb</td><td>Immune to Squeamish/Germaphobe-type Flaw triggers, but also don't notice new Injuries when they happen</td><td>Feeling returns (GM/player call)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <div class="sect-label">Emotional</div>
+    <div class="sect-note">Concrete versions — each has a specific trigger and a specific fix, not just flavor.</div>
+    <table class="ref">
+      <tr><th>Condition</th><th>Effect</th><th>Clears When</th></tr>
+      <tr><td class="name">Panic Spiral</td><td>After any Critical Failure, your very next roll auto-downgrades one tier too</td><td>That next roll resolves (good or bad)</td></tr>
+      <tr><td class="name">Grief-Struck</td><td>Downgrade one tier whenever the GM/player invokes the specific loss</td><td>Confronted directly, or scene ends</td></tr>
+      <tr><td class="name">Despair</td><td>Cap your rolls at Minor tier — Major bonus doesn't apply even if you have it</td><td>A hope-restoring beat (GM or player-triggered)</td></tr>
+      <tr><td class="name">Rage</td><td>Upgrade Brawns-type rolls one tier, downgrade Common Sense-type rolls one tier</td><td>Scene ends, or deliberately calmed</td></tr>
+      <tr><td class="name">Overwhelmed</td><td>If 2+ statuses/flaws are active at once, add a 3rd automatic downgrade on top</td><td>Whenever you're down to 1 or 0 active statuses</td></tr>
+      <tr><td class="name">Hesitation (Guilt)</td><td>If you choose self-preservation over helping someone, downgrade your very next roll</td><td>Resolves after that one roll</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <div class="sect-label">Design Notes</div>
+    <div class="callout design-notes">
+      <ul>
+        <li><b>Everything has an exit.</b> Nothing here is permanent or purely additive punishment — every entry has a listed way to clear it. Players need to feel like they can <i>do something</i> about their condition, not just suffer passively.</li>
+        <li><b>Bleeding is the death spiral.</b> It's the one status that gets worse if ignored — everything else is a flat, single-tier hit.</li>
+        <li><b>Overwhelmed is the safety valve.</b> Flaws already trigger tier-downgrades, so a character who's Bleeding <i>and</i> Terrified <i>and</i> has their Flaw active could stack three downgrades. Overwhelmed just names that moment explicitly — and it's a great horror beat ("everything is going wrong at once").</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>GM eyes only. Don't let the players see this page.</footer>
+</div>
+
+</body>
+</html>

@@ -30,7 +30,17 @@ jobs:
       - name: Build site
         run: |
           mkdir -p _site
-          cp -r sheets _site/sheets
+
+          # Any top-level folder containing .html files becomes a category on the index.
+          categories=()
+          for d in */; do
+            d="${d%/}"
+            [ "$d" = ".github" ] && continue
+            if compgen -G "$d"/*.html > /dev/null 2>&1; then
+              categories+=("$d")
+              cp -r "$d" "_site/$d"
+            fi
+          done
 
           {
             echo '<!DOCTYPE html>'
@@ -40,23 +50,29 @@ jobs:
             echo '<style>'
             echo 'body{font-family:Georgia,serif;max-width:640px;margin:48px auto;padding:0 20px;background:#3a3227;color:#eee3c6;}'
             echo 'h1{font-size:22px;letter-spacing:.04em;border-bottom:2px solid #eee3c6;padding-bottom:10px;}'
+            echo 'h2{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#e8b458;margin-top:28px;}'
             echo 'ul{line-height:2;padding-left:20px;}'
             echo 'a{color:#e8b458;text-decoration:none;font-size:17px;}'
             echo 'a:hover{text-decoration:underline;}'
             echo 'p.empty{font-style:italic;color:#b3a780;}'
             echo '</style></head><body>'
-            echo '<h1>Reference Sheets</h1><ul>'
-            if compgen -G "sheets/*.html" > /dev/null; then
-              for f in sheets/*.html; do
-                name=$(basename "$f")
-                title=$(grep -oP '(?<=<title>).*?(?=</title>)' "$f" | head -n1 || true)
-                if [ -z "$title" ]; then title="$name"; fi
-                echo "<li><a href=\"sheets/$name\">$title</a></li>"
-              done
+            echo '<h1>Reference Sheets</h1>'
+            if [ "${#categories[@]}" -eq 0 ]; then
+              echo '<p class="empty">No sheets yet — add an .html file to a top-level folder (e.g. sheets/) and push.</p>'
             else
-              echo '<p class="empty">No sheets yet — add an .html file to sheets/ and push.</p>'
+              for d in "${categories[@]}"; do
+                label=$(echo "$d" | sed 's/[-_]/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2); print}')
+                echo "<h2>$label</h2><ul>"
+                for f in "$d"/*.html; do
+                  name=$(basename "$f")
+                  title=$(grep -oP '(?<=<title>).*?(?=</title>)' "$f" | head -n1 || true)
+                  if [ -z "$title" ]; then title="$name"; fi
+                  echo "<li><a href=\"$d/$name\">$title</a></li>"
+                done
+                echo '</ul>'
+              done
             fi
-            echo '</ul></body></html>'
+            echo '</body></html>'
           } > _site/index.html
 
       - name: Upload artifact
