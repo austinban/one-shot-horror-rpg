@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student File — Character Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211d18;
+    --paper:#eee3c6;
+    --paper-dark:#ddceA4;
+    --paper-shadow:#c9b98a;
+    --pumpkin:#b5541e;
+    --blood:#7d2020;
+    --moss:#4c5a37;
+    --moss-light:#7c8f5c;
+  }
+
+  *{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+
+  body{
+    margin:0;
+    padding:24px;
+    background:#3a3227;
+    font-family:'Courier Prime',monospace;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+
+  .toolbar{
+    position:fixed;
+    top:14px; right:14px;
+    display:flex; gap:8px;
+    z-index:50;
+  }
+  .toolbar button{
+    font-family:'Courier Prime',monospace;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:8px 12px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{ background:var(--pumpkin); color:var(--paper); }
+
+  .sheet{
+    width:8.5in;
+    min-height:11in;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(0,0,0,0.05), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(0,0,0,0.06), transparent 45%);
+    position:relative;
+    padding:0.42in 0.48in 0.4in 0.48in;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    clip-path: polygon(
+      0% 1.2%, 3% 0%, 7% 1%, 11% 0.2%, 15% 1.1%, 19% 0%, 23% 1%, 27% 0.3%,
+      31% 1.2%, 35% 0%, 39% 1%, 43% 0.2%, 47% 1.1%, 51% 0%, 55% 1%, 59% 0.3%,
+      63% 1.2%, 67% 0%, 71% 1%, 75% 0.2%, 79% 1.1%, 83% 0%, 87% 1%, 91% 0.3%,
+      95% 1.2%, 100% 0%,
+      100% 100%, 0% 100%
+    );
+  }
+
+  /* tape corners */
+  .tape{
+    position:absolute;
+    width:70px; height:26px;
+    background:rgba(230,225,205,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+    box-shadow:0 1px 3px rgba(0,0,0,0.25);
+  }
+  .tape.tl{ top:-8px; left:36px; transform:rotate(-8deg);}
+  .tape.tr{ top:-6px; right:40px; transform:rotate(6deg);}
+
+  header.title-block{
+    text-align:center;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:8px;
+    margin-bottom:10px;
+  }
+  .eyebrow{
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size:10.5px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--blood);
+  }
+  h1{
+    font-family:'Special Elite', 'Courier New', monospace;
+    font-size:30px;
+    margin:2px 0 4px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+  }
+  .subtitle{
+    font-size:11px;
+    font-style:italic;
+    color:#4a4438;
+  }
+
+  section{ margin-bottom:9px; }
+
+  .sect-label{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    background:var(--ink);
+    color:var(--paper);
+    display:inline-block;
+    padding:2px 9px;
+    margin-bottom:5px;
+  }
+
+  /* identity row */
+  .identity{ display:flex; gap:10px; align-items:flex-end; }
+  .field{ flex:1; }
+  .field.small{ flex:0 0 110px; }
+  .field label{
+    display:block;
+    font-size:9px; letter-spacing:.1em; text-transform:uppercase;
+    color:#5a5240; margin-bottom:1px;
+  }
+  .field input, .field textarea{
+    width:100%;
+    border:none;
+    border-bottom:1.5px dashed var(--ink);
+    background:transparent;
+    font-family:'Courier Prime',monospace;
+    font-size:13px;
+    padding:2px 1px;
+    color:var(--ink);
+  }
+  .field textarea{ resize:none; height:56px; font-size:11.5px; line-height:1.4; }
+  .field input:focus, .field textarea:focus{ outline:none; border-bottom-color:var(--pumpkin); }
+
+  /* attributes */
+  .attr-wrap{ display:flex; gap:12px; }
+  table.attr-table{
+    flex:1;
+    border-collapse:collapse;
+    font-size:10.5px;
+  }
+  table.attr-table th{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding:2px 4px;
+    text-align:center;
+    border-bottom:1.5px solid var(--ink);
+  }
+  table.attr-table td{
+    padding:2.5px 4px;
+    border-bottom:1px solid var(--paper-shadow);
+  }
+  table.attr-table td.attr-name{ font-weight:700; }
+  table.attr-table td.pick{ text-align:center; }
+
+  .th-major{ color:#2f5c1e; }
+  .th-minor{ color:#8a6a00; }
+  .th-neutral{ color:#5a5240; }
+  .th-weak{ color:#8f1f1f; }
+
+  td.pick-major{ background:rgba(76,140,50,0.18); border-left:2px solid #4c8c32; }
+  td.pick-minor{ background:rgba(212,168,0,0.20); border-left:2px solid #d4a800; }
+  td.pick-neutral{ background:rgba(120,110,90,0.10); border-left:2px solid #8a8068; }
+  td.pick-weak{ background:rgba(180,40,40,0.16); border-left:2px solid #b42828; }
+
+  input[type=radio]{ transform:scale(1.05); cursor:pointer; }
+
+  .dice-legend{
+    flex:0 0 190px;
+    font-size:9.5px;
+    background:var(--paper-dark);
+    border:1px solid var(--paper-shadow);
+    padding:6px 8px;
+    line-height:1.55;
+  }
+  .dice-legend .row{ display:flex; justify-content:space-between; }
+  .dice-legend b{ color:var(--blood); }
+
+  /* skills */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:2px 14px;
+    font-size:11px;
+  }
+  .skill-item{ display:flex; align-items:center; gap:5px; padding:1.5px 0; }
+  .skill-item input{ cursor:pointer; }
+  .skill-note{ font-size:9px; font-style:italic; color:#5a5240; margin-top:3px;}
+
+  /* flaw */
+  .flaw-wrap{ display:flex; gap:12px; position:relative; }
+  .flaw-table{ flex:1; }
+  table.flaws{ width:100%; border-collapse:collapse; font-size:9.6px; }
+  table.flaws td{ padding:1.5px 4px; cursor:pointer; border-bottom:1px dotted var(--paper-shadow); }
+  table.flaws td.num{ width:16px; font-weight:700; color:var(--blood); }
+  table.flaws tr:hover td{ background:rgba(181,84,30,0.12); }
+  table.flaws tr.picked td{ background:var(--pumpkin); color:var(--paper); font-weight:700; }
+
+  .flaw-side{
+    flex:0 0 170px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    align-items:center;
+  }
+  .stamp{
+    width:150px; height:150px;
+    border:4px double var(--blood);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    transform:rotate(-9deg);
+    color:var(--blood);
+    font-family:'Special Elite','Courier New',monospace;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:11px;
+    line-height:1.5;
+    padding:8px;
+    opacity:0.92;
+    mix-blend-mode:multiply;
+  }
+  .flaw-fields{ width:150px; }
+  .flaw-fields .field{ margin-bottom:5px; }
+  #rollBtn{
+    width:150px;
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:6px 4px;
+    border:2px solid var(--ink);
+    background:var(--moss);
+    color:var(--paper);
+    cursor:pointer;
+    border-radius:2px;
+  }
+  #rollBtn:hover{ background:var(--blood); }
+
+  /* resolution key */
+  .resolve-wrap{ display:flex; gap:14px; }
+  table.resolve{ flex:1; border-collapse:collapse; font-size:10px; }
+  table.resolve th{
+    font-size:9px; text-transform:uppercase; letter-spacing:.05em;
+    padding:2px 5px; border-bottom:1.5px solid var(--ink); text-align:left;
+  }
+  table.resolve td{ padding:2.5px 5px; border-bottom:1px solid var(--paper-shadow); }
+  .r6{ color:var(--moss); font-weight:800; }
+  .r45{ color:#7a6a2c; font-weight:700; }
+  .r23{ color:var(--pumpkin); font-weight:700; }
+  .r1{ color:var(--blood); font-weight:800; }
+
+  footer{
+    margin-top:6px;
+    text-align:center;
+    font-size:9px;
+    letter-spacing:.05em;
+    color:#5a5240;
+    border-top:1px solid var(--paper-shadow);
+    padding-top:5px;
+  }
+
+  @media print{
+    body{ background:none; padding:0; }
+    .toolbar{ display:none; }
+    .sheet{ box-shadow:none; width:100%; min-height:0; }
+    @page{ size:letter; margin:0.25in; }
+  }
+
+  /* ---- Preview / printable summary mode ---- */
+  #summarySheet{ display:none; }
+  body.preview-mode #editSheet{ display:none; }
+  body.preview-mode #summarySheet{ display:block; }
+  .edit-only{ display:inline-flex; }
+  body.preview-mode .edit-only{ display:none; }
+
+  .summary-attrs{ display:flex; flex-direction:column; gap:8px; margin-bottom:22px; }
+  .attr-line{
+    display:flex; align-items:center; gap:12px;
+    padding:9px 16px;
+    border-radius:4px;
+    font-size:15px;
+  }
+  .attr-line .tag{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:3px;
+    color:var(--paper);
+    flex:0 0 auto;
+    min-width:96px;
+    text-align:center;
+  }
+  .attr-line .aname{ font-weight:800; font-size:16px; flex:1; }
+  .attr-line .adice{ font-size:12px; color:#5a5240; min-width:118px; text-align:right; }
+  .attr-line.major{ background:rgba(76,140,50,0.14); border-left:4px solid #4c8c32; }
+  .attr-line.major .tag{ background:#3f6b2c; }
+  .attr-line.minor{ background:rgba(212,168,0,0.16); border-left:4px solid #d4a800; }
+  .attr-line.minor .tag{ background:#8a6a00; }
+  .attr-line.weak{ background:rgba(180,40,40,0.14); border-left:4px solid #b42828; }
+  .attr-line.weak .tag{ background:#7d2020; }
+  .attr-line.neutral{ background:rgba(120,110,90,0.08); border-left:4px solid #8a8068; }
+  .attr-line.neutral .tag{ background:#5a5240; }
+
+  .summary-skills{
+    display:flex; gap:14px; justify-content:flex-start; margin-bottom:22px; flex-wrap:wrap;
+  }
+  .skill-chip{
+    font-size:15px; font-weight:700;
+    padding:9px 20px;
+    border:2px solid var(--ink);
+    border-radius:20px;
+    background:var(--paper-dark);
+  }
+  .skill-chip small{ font-weight:400; font-size:11px; color:#5a5240; display:block; letter-spacing:.05em; }
+
+  .summary-flaw{
+    display:flex; align-items:center; gap:20px; justify-content:center;
+    margin-bottom:6px;
+  }
+  .stamp.small{
+    width:110px; height:110px;
+    font-size:13px;
+    flex:0 0 auto;
+  }
+  .summary-flaw-text{ max-width:4.2in; }
+  .summary-flaw-text .fname{ font-size:22px; font-weight:800; color:var(--blood); font-family:'Special Elite','Courier New',monospace; text-transform:uppercase; }
+  .summary-flaw-text .ftrig{ font-size:13px; margin-top:3px; color:#3a352a; }
+
+  .summary-empty{ color:#8a8068; font-style:italic; }
+
+  /* summary header + identity emphasis */
+  #summarySheet h1{ font-size:19px; margin:2px 0 3px; }
+  #summarySheet .eyebrow{ font-size:8.5px; }
+  #summarySheet .subtitle{ font-size:9.5px; }
+  #summarySheet header.title-block{ padding-bottom:6px; margin-bottom:8px; }
+
+  .summary-name{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:36px;
+    text-align:center;
+    letter-spacing:.02em;
+    margin:2px 0 8px;
+  }
+  .summary-desc{
+    font-size:17px;
+    font-style:italic;
+    line-height:1.55;
+    text-align:center;
+    max-width:7in;
+    margin:0 auto 22px;
+    color:#3a352a;
+    padding:10px 18px;
+    border-top:1px solid var(--paper-shadow);
+    border-bottom:1px solid var(--paper-shadow);
+  }
+
+  .summary-tracklists{
+    display:flex; gap:24px;
+    margin-top:6px;
+  }
+  .tracklist{ flex:1; }
+  .tracklist ol{
+    list-style:none;
+    counter-reset:track;
+    margin:0; padding:0;
+  }
+  .tracklist li{
+    counter-increment:track;
+    display:flex; align-items:baseline; gap:6px;
+    padding:5px 0;
+    border-bottom:1px dashed var(--paper-shadow);
+  }
+  .tracklist li::before{
+    content: counter(track) ".";
+    font-weight:700;
+    color:#8a8068;
+    font-size:12px;
+    flex:0 0 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <button id="previewBtn" onclick="togglePreview()">📋 Preview Printable Version</button>
+  <button onclick="window.print()">🖨️ Print / Save PDF</button>
+  <button class="edit-only" onclick="rollFlaw()">🎲 Roll Flaw</button>
+  <button class="edit-only" onclick="resetSheet()">Clear Sheet</button>
+</div>
+
+<div class="sheet" id="editSheet">
+  <div class="tape tl"></div>
+  <div class="tape tr"></div>
+
+  <header class="title-block">
+    <div class="eyebrow">Property of the Front Office · Do Not Remove</div>
+    <h1>Student File: Survive the Night</h1>
+    <div class="subtitle">Character Dossier — Complete before curfew.</div>
+  </header>
+
+  <section>
+    <div class="identity">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" id="nameInput" placeholder="Your character's name">
+      </div>
+    </div>
+    <div class="field" style="margin-top:6px;">
+      <label>Brief Description</label>
+      <textarea id="descBox" rows="3" placeholder="Who are they? What's their deal?"></textarea>
+    </div>
+  </section>
+
+  <section>
+    <div class="sect-label">Attributes</div>
+    <div class="attr-wrap">
+      <table class="attr-table">
+        <tr>
+          <th style="text-align:left;">Attribute</th>
+          <th class="th-major">Major<br><span style="font-weight:400;">3d6 hi</span></th>
+          <th class="th-minor">Minor<br><span style="font-weight:400;">2d6 hi</span></th>
+          <th class="th-neutral">Neutral<br><span style="font-weight:400;">1d6</span></th>
+          <th class="th-weak">Weak Spot<br><span style="font-weight:400;">2d6 lo</span></th>
+        </tr>
+        <tr>
+          <td class="attr-name">Brains</td>
+          <td class="pick pick-major"><input type="radio" name="major" value="Brains" onchange="clearOthers('major','Brains')"></td>
+          <td class="pick pick-minor"><input type="radio" name="minor" value="Brains" onchange="clearOthers('minor','Brains')"></td>
+          <td class="pick pick-neutral"><input type="checkbox" class="neutral-box" id="neutral-Brains" disabled checked></td>
+          <td class="pick pick-weak"><input type="radio" name="weak" value="Brains" onchange="clearOthers('weak','Brains')"></td>
+        </tr>
+        <tr>
+          <td class="attr-name">Brawns</td>
+          <td class="pick pick-major"><input type="radio" name="major" value="Brawns" onchange="clearOthers('major','Brawns')"></td>
+          <td class="pick pick-minor"><input type="radio" name="minor" value="Brawns" onchange="clearOthers('minor','Brawns')"></td>
+          <td class="pick pick-neutral"><input type="checkbox" class="neutral-box" id="neutral-Brawns" disabled checked></td>
+          <td class="pick pick-weak"><input type="radio" name="weak" value="Brawns" onchange="clearOthers('weak','Brawns')"></td>
+        </tr>
+        <tr>
+          <td class="attr-name">Beauty</td>
+          <td class="pick pick-major"><input type="radio" name="major" value="Beauty" onchange="clearOthers('major','Beauty')"></td>
+          <td class="pick pick-minor"><input type="radio" name="minor" value="Beauty" onchange="clearOthers('minor','Beauty')"></td>
+          <td class="pick pick-neutral"><input type="checkbox" class="neutral-box" id="neutral-Beauty" disabled checked></td>
+          <td class="pick pick-weak"><input type="radio" name="weak" value="Beauty" onchange="clearOthers('weak','Beauty')"></td>
+        </tr>
+        <tr>
+          <td class="attr-name">Backflips</td>
+          <td class="pick pick-major"><input type="radio" name="major" value="Backflips" onchange="clearOthers('major','Backflips')"></td>
+          <td class="pick pick-minor"><input type="radio" name="minor" value="Backflips" onchange="clearOthers('minor','Backflips')"></td>
+          <td class="pick pick-neutral"><input type="checkbox" class="neutral-box" id="neutral-Backflips" disabled checked></td>
+          <td class="pick pick-weak"><input type="radio" name="weak" value="Backflips" onchange="clearOthers('weak','Backflips')"></td>
+        </tr>
+        <tr>
+          <td class="attr-name">Common Sense</td>
+          <td class="pick pick-major"><input type="radio" name="major" value="Common Sense" onchange="clearOthers('major','Common Sense')"></td>
+          <td class="pick pick-minor"><input type="radio" name="minor" value="Common Sense" onchange="clearOthers('minor','Common Sense')"></td>
+          <td class="pick pick-neutral"><input type="checkbox" class="neutral-box" id="neutral-Common Sense" disabled checked></td>
+          <td class="pick pick-weak"><input type="radio" name="weak" value="Common Sense" onchange="clearOthers('weak','Common Sense')"></td>
+        </tr>
+      </table>
+      <div class="dice-legend">
+        <div class="row"><span style="color:#2f5c1e; font-weight:700;">Major</span><b>3d6, keep highest</b></div>
+        <div class="row"><span style="color:#8a6a00; font-weight:700;">Minor</span><b>2d6, keep highest</b></div>
+        <div class="row"><span style="color:#5a5240; font-weight:700;">Everything else</span><b>1d6</b></div>
+        <div class="row"><span style="color:#8f1f1f; font-weight:700;">Weak Spot</span><b>2d6, keep lowest</b></div>
+        <div style="margin-top:4px; font-style:italic;">Pick one attribute per column — anything left unpicked shows as Neutral.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sect-label">Skills — choose exactly 2</div>
+    <div class="skills-grid">
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Explosives</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Dancing</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Stoner</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Chem Whiz</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Class Clown</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Theater Kid</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Early Bloomer</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> AV Club</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Jaded</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Skaterboy</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Hooligan</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Eagle Scout</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Lifeguard</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Movie Buff</label>
+      <label class="skill-item"><input type="checkbox" class="skill-box" onchange="limitSkills(this)"> Lucky</label>
+    </div>
+    <div class="skill-note">Each skill you have adds a d6 to your roll (in addition to your attribute die/pool) whenever it's relevant — roll them all and keep the highest.</div>
+  </section>
+
+  <section>
+    <div class="sect-label">Flaw — roll 1d20 (assigned, not chosen)</div>
+    <div class="flaw-wrap">
+      <div class="flaw-table">
+        <table class="flaws" id="flawTable">
+          <tr onclick="selectFlaw(1,'Bad Knee',this)" data-trigger="run or climb"><td class="num">1</td><td>Bad Knee — run/climb</td></tr>
+          <tr onclick="selectFlaw(2,'Coward',this)" data-trigger="confront someone/something face-to-face"><td class="num">2</td><td>Coward — face-to-face confrontation</td></tr>
+          <tr onclick="selectFlaw(3,'Clumsy',this)" data-trigger="need to be quiet or handle something delicate"><td class="num">3</td><td>Clumsy — quiet/delicate tasks</td></tr>
+          <tr onclick="selectFlaw(4,'Afraid of the Dark',this)" data-trigger="act without a light source"><td class="num">4</td><td>Afraid of the Dark — no light source</td></tr>
+          <tr onclick="selectFlaw(5,'Squeamish',this)" data-trigger="deal with blood, gore, or a body"><td class="num">5</td><td>Squeamish — blood, gore, a body</td></tr>
+          <tr onclick="selectFlaw(6,'Can\'t Whisper',this)" data-trigger="try to sneak or stay hidden"><td class="num">6</td><td>Can't Whisper — sneaking/hiding</td></tr>
+          <tr onclick="selectFlaw(7,'Motion Sickness',this)" data-trigger="are in a moving vehicle or a spinning/disorienting space"><td class="num">7</td><td>Motion Sickness — moving/spinning space</td></tr>
+          <tr onclick="selectFlaw(8,'Techno-Illiterate',this)" data-trigger="use tech or machinery"><td class="num">8</td><td>Techno-Illiterate — tech/machinery</td></tr>
+          <tr onclick="selectFlaw(9,'Bad Sense of Direction',this)" data-trigger="try to navigate or find your way"><td class="num">9</td><td>Bad Sense of Direction — navigating</td></tr>
+          <tr onclick="selectFlaw(10,'Short Fuse',this)" data-trigger="try to stay calm or de-escalate"><td class="num">10</td><td>Short Fuse — staying calm</td></tr>
+          <tr onclick="selectFlaw(11,'People-Pleaser',this)" data-trigger="try to refuse or stand your ground against a friend"><td class="num">11</td><td>People-Pleaser — refusing a friend</td></tr>
+          <tr onclick="selectFlaw(12,'Germaphobe',this)" data-trigger="have to touch something gross"><td class="num">12</td><td>Germaphobe — touching something gross</td></tr>
+          <tr onclick="selectFlaw(13,'Allergic',this)" data-trigger="are exposed to your allergen (GM picks it once, in session)"><td class="num">13</td><td>Allergic — exposed to allergen (GM picks)</td></tr>
+          <tr onclick="selectFlaw(14,'Insomniac',this)" data-trigger="try to stay alert or notice something"><td class="num">14</td><td>Insomniac — staying alert/noticing</td></tr>
+          <tr onclick="selectFlaw(15,'Can\'t Drive',this)" data-trigger="drive a vehicle"><td class="num">15</td><td>Can't Drive — driving a vehicle</td></tr>
+          <tr onclick="selectFlaw(16,'Overconfident',this)" data-trigger="assess danger or read a risky situation"><td class="num">16</td><td>Overconfident — assessing danger</td></tr>
+          <tr onclick="selectFlaw(17,'Superstitious',this)" data-trigger="confront an omen, ritual, or supernatural sign"><td class="num">17</td><td>Superstitious — omens/rituals</td></tr>
+          <tr onclick="selectFlaw(18,'Bad Liar',this)" data-trigger="try to lie, bluff, or hide something"><td class="num">18</td><td>Bad Liar — lying/bluffing</td></tr>
+          <tr onclick="selectFlaw(19,'Animal-Phobic',this)" data-trigger="interact with or get near an animal"><td class="num">19</td><td>Animal-Phobic — near an animal</td></tr>
+          <tr onclick="selectFlaw(20,'Afraid of Water',this)" data-trigger="swim, wade, or deal with water"><td class="num">20</td><td>Afraid of Water — swimming/wading</td></tr>
+        </table>
+      </div>
+      <div class="flaw-side">
+        <div class="stamp">ASSIGNED<br>BY FATE</div>
+        <div class="flaw-fields">
+          <div class="field"><label>D20 Roll</label><input type="text" id="flawRoll" placeholder="—"></div>
+          <div class="field"><label>Flaw</label><input type="text" id="flawName" placeholder="—"></div>
+          <input type="hidden" id="flawTrigger" value="">
+        </div>
+        <button id="rollBtn" onclick="rollFlaw()">🎲 Roll d20</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>Detention starts the moment you put your pencil down. Good luck.</footer>
+</div>
+
+<div class="sheet" id="summarySheet">
+  <div class="tape tl"></div>
+  <div class="tape tr"></div>
+
+  <header class="title-block">
+    <div class="eyebrow">Property of the Front Office · Do Not Remove</div>
+    <h1>Student File: Survive the Night</h1>
+    <div class="subtitle">Cleared for Halloween Night</div>
+  </header>
+
+  <div class="summary-name" id="sumName">—</div>
+  <div class="summary-desc" id="sumDesc">—</div>
+
+  <div class="sect-label">Attributes</div>
+  <div class="summary-attrs" id="sumAttrs"></div>
+
+  <div class="sect-label">Skills</div>
+  <div class="summary-skills" id="sumSkills"><span class="summary-empty">No skills chosen yet</span></div>
+
+  <div class="sect-label">Flaw</div>
+  <div class="summary-flaw">
+    <div class="stamp small">ASSIGNED<br>BY FATE</div>
+    <div class="summary-flaw-text">
+      <div class="fname" id="sumFlawName">Not yet rolled</div>
+      <div class="ftrig" id="sumFlawTrig"></div>
+    </div>
+  </div>
+
+  <div class="summary-tracklists">
+    <div class="tracklist">
+      <div class="sect-label">Inventory</div>
+      <ol>
+        <li></li><li></li><li></li><li></li><li></li>
+      </ol>
+    </div>
+    <div class="tracklist">
+      <div class="sect-label">Conditions</div>
+      <ol>
+        <li></li><li></li><li></li><li></li><li></li>
+      </ol>
+    </div>
+  </div>
+
+  <footer>This is your character. Good luck out there.</footer>
+</div>
+
+<script>
+function clearOthers(group, value){
+  ['major','minor','weak'].forEach(g=>{
+    if(g!==group){
+      document.querySelectorAll(`input[name=${g}]`).forEach(r=>{
+        if(r.value===value) r.checked=false;
+      });
+    }
+  });
+  updateNeutral();
+}
+
+function updateNeutral(){
+  const attrs = ['Brains','Brawns','Beauty','Backflips','Common Sense'];
+  attrs.forEach(a=>{
+    const isAssigned = ['major','minor','weak'].some(g=>{
+      const r = document.querySelector(`input[name=${g}][value="${a}"]`);
+      return r && r.checked;
+    });
+    document.getElementById('neutral-'+a).checked = !isAssigned;
+  });
+}
+
+function limitSkills(el){
+  const checked = document.querySelectorAll('.skill-box:checked');
+  if(checked.length>2){ el.checked=false; }
+}
+
+function selectFlaw(num, name, rowEl){
+  document.getElementById('flawRoll').value = num;
+  document.getElementById('flawName').value = name;
+  document.getElementById('flawTrigger').value = rowEl.getAttribute('data-trigger') || '';
+  document.querySelectorAll('#flawTable tr').forEach(r=>r.classList.remove('picked'));
+  rowEl.classList.add('picked');
+}
+
+function rollFlaw(){
+  const num = Math.floor(Math.random()*20)+1;
+  const row = document.querySelectorAll('#flawTable tr')[num-1];
+  row.click();
+}
+
+function togglePreview(){
+  const isPreview = document.body.classList.contains('preview-mode');
+  if(!isPreview){
+    buildSummary();
+    document.body.classList.add('preview-mode');
+    document.getElementById('previewBtn').textContent = '✏️ Back to Edit';
+  } else {
+    document.body.classList.remove('preview-mode');
+    document.getElementById('previewBtn').textContent = '📋 Preview Printable Version';
+  }
+}
+
+function buildSummary(){
+  const attrs = ['Brains','Brawns','Beauty','Backflips','Common Sense'];
+  const getVal = (g) => {
+    const r = document.querySelector(`input[name=${g}]:checked`);
+    return r ? r.value : null;
+  };
+  const major = getVal('major');
+  const minor = getVal('minor');
+  const weak = getVal('weak');
+
+  document.getElementById('sumName').textContent = document.getElementById('nameInput').value.trim() || '—';
+  document.getElementById('sumDesc').textContent = document.getElementById('descBox').value.trim() || '—';
+
+  const tierInfo = {
+    major:   { label:'Major',     dice:'3d6, keep highest' },
+    minor:   { label:'Minor',     dice:'2d6, keep highest' },
+    weak:    { label:'Weak Spot', dice:'2d6, keep lowest' },
+    neutral: { label:'Neutral',   dice:'1d6' }
+  };
+  const attrsWrap = document.getElementById('sumAttrs');
+  attrsWrap.innerHTML = '';
+  attrs.forEach(a=>{
+    let tier = 'neutral';
+    if(a===major) tier='major';
+    else if(a===minor) tier='minor';
+    else if(a===weak) tier='weak';
+    const info = tierInfo[tier];
+    const line = document.createElement('div');
+    line.className = `attr-line ${tier}`;
+    line.innerHTML = `<span class="aname">${a}</span><span class="tag">${info.label}</span><span class="adice">${info.dice}</span>`;
+    attrsWrap.appendChild(line);
+  });
+
+  const skillsWrap = document.getElementById('sumSkills');
+  const chosen = Array.from(document.querySelectorAll('.skill-box:checked')).map(cb => cb.closest('.skill-item').textContent.trim());
+  skillsWrap.innerHTML = '';
+  if(chosen.length===0){
+    skillsWrap.innerHTML = '<span class="summary-empty">No skills chosen yet</span>';
+  } else {
+    chosen.forEach(name=>{
+      const chip = document.createElement('div');
+      chip.className = 'skill-chip';
+      chip.innerHTML = name + '<small>adds a d6, keep highest</small>';
+      skillsWrap.appendChild(chip);
+    });
+  }
+
+  const flawName = document.getElementById('flawName').value.trim();
+  const flawTrigger = document.getElementById('flawTrigger').value.trim();
+  document.getElementById('sumFlawName').textContent = flawName || 'Not yet rolled';
+  document.getElementById('sumFlawTrig').textContent = flawTrigger ? `Triggers 2d6-keep-lowest when you ${flawTrigger}.` : '';
+}
+
+function resetSheet(){
+  document.querySelectorAll('input[type=text]').forEach(i=>i.value='');
+  document.getElementById('descBox').value='';
+  document.getElementById('flawTrigger').value='';
+  document.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(i=>{
+    if(!i.classList.contains('neutral-box')) i.checked=false;
+  });
+  document.querySelectorAll('#flawTable tr').forEach(r=>r.classList.remove('picked'));
+  updateNeutral();
+}
+
+function fillTestData(){
+  document.getElementById('nameInput').value = 'Riley Ortega';
+  document.getElementById('descBox').value = 'Sarcastic theater kid who peaked freshman year and refuses to let it go.';
+
+  document.querySelector('input[name=major][value="Backflips"]').checked = true;
+  document.querySelector('input[name=minor][value="Common Sense"]').checked = true;
+  document.querySelector('input[name=weak][value="Beauty"]').checked = true;
+  updateNeutral();
+
+  document.querySelectorAll('.skill-box')[2].checked = true;  // Stoner
+  document.querySelectorAll('.skill-box')[12].checked = true; // Lifeguard
+
+  document.querySelectorAll('#flawTable tr')[2].click(); // Clumsy
+}
+fillTestData();
+</script>
+
+</body>
+</html>
