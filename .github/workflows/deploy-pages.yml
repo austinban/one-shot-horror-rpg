@@ -61,7 +61,7 @@ jobs:
               echo '<p class="empty">No sheets yet — add an .html file to a top-level folder (e.g. sheets/) and push.</p>'
             else
               for d in "${categories[@]}"; do
-                label=$(echo "$d" | sed 's/[-_]/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2); print}')
+                label=$(echo "$d" | sed 's/[-_]/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2); print}' | sed -E 's/\bDm\b/DM/')
                 echo "<h2>$label</h2><ul>"
                 for f in "$d"/*.html; do
                   name=$(basename "$f")
