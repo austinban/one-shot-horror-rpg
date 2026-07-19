@@ -183,6 +183,16 @@
   }
   .complication b{ color:var(--blood); }
 
+  .secret{
+    font-size:9.5px;
+    line-height:1.45;
+    color:var(--paper);
+    background:var(--ink);
+    padding:5px 8px;
+    margin:4px 0 6px;
+  }
+  .secret b{ font-family:'Special Elite','Courier New',monospace; text-transform:uppercase; letter-spacing:.05em; color:var(--pumpkin); }
+
   .game{
     margin:8px 0 8px 6px;
     padding-left:10px;
@@ -300,15 +310,16 @@
 
   <section class="room">
     <div class="room-label"><span class="num">2</span>The Hall of Mirrors</div>
-    <p class="vibe">Every mirror shows a slightly wrong version of the viewer — aged, injured, or doing something they haven't done yet.</p>
-    <p class="obstacle"><b>Obstacle:</b> one mirror is the real exit; the rest are dead ends that trap whoever steps through.</p>
+    <p class="vibe">Every mirror shows a slightly wrong version of the viewer — aged, injured, or doing something they haven't done yet. The layout never looks quite the same twice.</p>
+    <p class="obstacle"><b>Obstacle:</b> the mirrors reposition themselves whenever nobody's looking directly at them, turning the hall into a maze that can't be memorized — only whoever last looked away knows it moved.</p>
+    <div class="secret"><b>Secret:</b> each mirror is being carried by an undead minion, silent and still as long as it's watched. Breaking a mirror, or catching one mid-shift, exposes the thing underneath — and it will grab or block whoever exposed it to keep the maze closed.</div>
     <ul class="solutions">
-      <li><span class="tag brains">Brains</span>The true exit is the only mirror where the reflection is out of sync with them by half a second.</li>
-      <li><span class="tag backflips">Backflips / Skaterboy</span>Vault along the mirror frames without touching the glass to reach the far one blind.</li>
-      <li><span class="tag common-sense">Common Sense / Eagle Scout</span>Mark reflections (chalk, tape) to eliminate mirrors by process of elimination instead of guessing.</li>
-      <li><span class="tag beauty">Beauty / Early Bloomer</span>Their reflection is the only one that visibly wants them to come closer — trust vanity over logic.</li>
+      <li><span class="tag brains">Brains</span>Keep something on every mirror at once — a phone propped to record, mirrors angled to watch other mirrors, the party splitting to cross-watch — so nothing can move unobserved. Freezes the maze in place.</li>
+      <li><span class="tag common-sense">Common Sense</span>The minions aren't silent — footsteps, dragging, breathing. Follow the sound instead of the sight to find the gaps without needing to catch anything moving.</li>
+      <li><span class="tag backflips">Backflips / Skaterboy</span>Catch a mirror mid-shift and slip through the half-second gap before it reseals — fast enough that nothing gets a grip.</li>
+      <li><span class="tag brawns">Brawns / Hooligan</span>Smash straight through. Shatters the mirror, exposes the minion carrying it, and turns the puzzle into a straight scramble to the door.</li>
     </ul>
-    <div class="complication"><b>Complication:</b> stepping into a wrong mirror triggers Frozen, or Isolated if they're alone when it happens.</div>
+    <div class="complication"><b>Complication:</b> an exposed minion doesn't chase far or fight hard — it just grabs. Getting caught triggers Frozen, or Isolated if it happens while separated from the group.</div>
   </section>
 
   <section class="room">
