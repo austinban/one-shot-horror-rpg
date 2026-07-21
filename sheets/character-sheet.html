@@ -274,9 +274,22 @@
   }
 
   @media print{
-    body{ background:none; padding:0; }
+    body{ background:#fff; padding:0; }
     .toolbar{ display:none; }
-    .sheet{ box-shadow:none; width:100%; min-height:0; }
+    .sheet{ box-shadow:none; width:100%; min-height:0; background:#fff !important; background-image:none !important; }
+    .tape{ display:none; }
+    .sect-label{ background:#fff !important; color:#000 !important; border:1.3px solid #000; }
+    .dice-legend{ background:#fff !important; }
+    #rollBtn{ display:none; }
+    td.pick-major, td.pick-minor, td.pick-neutral, td.pick-weak{ background:none !important; }
+    table.flaws tr.picked td{ background:#fff !important; color:var(--pumpkin) !important; border:1px solid var(--pumpkin); }
+    .skill-chip{ background:#fff !important; }
+    .attr-line{ background:none !important; }
+    .attr-line .tag{ background:#fff !important; border:1.3px solid; }
+    .attr-line.major .tag{ color:#2f5c1e; border-color:#2f5c1e; }
+    .attr-line.minor .tag{ color:#8a6a00; border-color:#8a6a00; }
+    .attr-line.weak .tag{ color:#7d2020; border-color:#7d2020; }
+    .attr-line.neutral .tag{ color:#5a5240; border-color:#5a5240; }
     @page{ size:letter; margin:0.25in; }
   }
 
