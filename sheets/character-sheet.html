@@ -711,22 +711,6 @@ function resetSheet(){
   document.querySelectorAll('#flawTable tr').forEach(r=>r.classList.remove('picked'));
   updateNeutral();
 }
-
-function fillTestData(){
-  document.getElementById('nameInput').value = 'Riley Ortega';
-  document.getElementById('descBox').value = 'Sarcastic theater kid who peaked freshman year and refuses to let it go.';
-
-  document.querySelector('input[name=major][value="Backflips"]').checked = true;
-  document.querySelector('input[name=minor][value="Common Sense"]').checked = true;
-  document.querySelector('input[name=weak][value="Beauty"]').checked = true;
-  updateNeutral();
-
-  document.querySelectorAll('.skill-box')[2].checked = true;  // Stoner
-  document.querySelectorAll('.skill-box')[12].checked = true; // Lifeguard
-
-  document.querySelectorAll('#flawTable tr')[2].click(); // Clumsy
-}
-fillTestData();
 </script>
 
 </body>
