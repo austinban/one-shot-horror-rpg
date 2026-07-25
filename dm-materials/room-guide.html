@@ -240,6 +240,19 @@
   }
   .thread b{ font-style:normal; color:var(--pumpkin); }
 
+  .monologue{
+    font-size:10.5px;
+    line-height:1.6;
+    padding:8px 14px;
+    margin:8px 0;
+    border-left:3px solid var(--blood);
+    background:rgba(0,0,0,0.03);
+  }
+  .monologue .label{ font-style:normal; font-weight:700; color:var(--blood); display:block; margin-bottom:5px; }
+  .monologue .beat{ display:block; font-style:italic; margin-bottom:6px; }
+  .monologue .beat:last-child{ margin-bottom:0; }
+  .monologue .stage{ font-style:normal; color:#5a5240; }
+
   footer{
     margin-top:6px;
     text-align:center;
@@ -269,6 +282,7 @@
     .tag.key{ color:var(--pumpkin); border-color:var(--pumpkin); }
     .tag.vote{ color:var(--moss); border-color:var(--moss); }
     .tag.hidden{ border:1.5px dashed var(--ink); }
+    .monologue{ background:#fff !important; }
     @page{ size:letter; margin:0.25in; }
   }
 </style>
@@ -294,7 +308,7 @@
   </div>
 
   <div class="intro">
-    <b>The Barker.</b> Since the cast is thin on NPCs, one voice carries the whole dimension — a Ringmaster/Barker who's never physically present, only heard through speakers, funhouse mirrors, and cue cards. He taunts, lies, and occasionally helps if it amuses him. He shows himself, in person, only at the very end — and he isn't alone when he does.
+    <b>The Barker.</b> Since the cast is thin on NPCs, one voice carries the whole dimension — a Ringmaster/Barker who's never physically present, only heard through speakers, funhouse mirrors, and cue cards. He taunts, lies, and occasionally helps if it amuses him. Whatever he's saying, he's always selling the same pitch — have fun, enjoy it, make the most of it while it lasts — classic carny patter that only curdles once his real motive comes out at the end. He shows himself, in person, only at the very end, and he isn't alone when he does.
   </div>
 
   <section class="room">
@@ -306,7 +320,7 @@
 
   <section class="room">
     <div class="room-label"><span class="num">1</span>Carny Games</div>
-    <p class="vibe">Stepping through the window doesn't lead to a hallway — it leads straight into a garish carnival lobby, ticket booth and all, three game stalls lit up and running like they never stopped. The window seals shut behind the last person through it. A bag of 10 tokens is waiting on the counter — one token, one play, at any stall, spent however the party likes.</p>
+    <p class="vibe">Stepping through the window doesn't lead to a hallway — it leads straight into a garish carnival lobby, ticket booth and all, three game stalls lit up and running like they never stopped. A hand-painted sign arches over the ticket booth: WONDERYEAR TRAVELING CARNIVAL — "The Good Times Don't Have to End." The window seals shut behind the last person through it. A bag of 10 tokens is waiting on the counter — one token, one play, at any stall, spent however the party likes.</p>
     <p class="obstacle"><b>Obstacle:</b> the exit door at the far wall has three empty keyholes. Each stall has its own huckster running a rigged game, and each one can still be won more than one way.</p>
 
     <div class="game">
@@ -445,6 +459,12 @@
     <div class="room-label"><span class="num">6</span>Finale — The Threshold Home</div>
     <p class="vibe">The exit door is real. So is the Barker, finally showing himself — and he isn't alone. The little brother stands beside him, calm in a way that isn't right, dressed in a miniature version of the Ringleader's coat. He's most of the way through becoming the dimension's newest attraction, the same way the judges and the mirror minions got their start.</p>
     <p class="obstacle"><b>Obstacle:</b> no new attribute gate. This isn't a puzzle to solve, it's a rescue to finish. The Barker wants a trade, an audience, maybe a replacement — not a fight. Every earlier room's choice — what they left in the Chancel, who's Bleeding, who's Overwhelmed, whether anyone got stuck in the Third Chair and had to be pulled free — determines how hard this is, and how much of him is still in there to bring home.</p>
+    <div class="monologue">
+      <span class="label">The Barker, finally speaking plainly:</span>
+      <span class="beat">"You don't remember what it feels like anymore. Not really. That first Halloween where the fear was the whole point, before you got tired, before you got embarrassed of wanting things this much. He still has it. Whole. Untouched. And what's waiting for him back home — two houses, a suitcase, a version of 'family' that doesn't exist anymore — I'm not stealing anything from him. I'm sparing him."</span>
+      <span class="beat"><span class="stage">(turning to the boy)</span> "You don't have to go back to any of that. Not the fighting. Not the packing. Not choosing who gets you for Christmas. Here, no one can leave, and no one wants to! Stay. Just stay."</span>
+      <span class="beat"><span class="stage">(back to the party)</span> "So — enjoy yourselves. Really. However this goes, however long you've got left in you — enjoy it. It doesn't last. Ask your dad."</span>
+    </div>
     <div class="secret"><b>Secret:</b> the coat is the binding, not the boy. If it comes off before the Barker finishes whatever he's negotiating for, the transformation partially unravels — the further along he is, the harder the coat fights to stay on.</div>
     <ul class="solutions">
       <li><span class="tag hidden">Hidden</span>Getting the coat off him — by force, by trick, or by talking him into taking it off himself — undoes more of what's been done than beating the Barker in a straight fight ever would.</li>
