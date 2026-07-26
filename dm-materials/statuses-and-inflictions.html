@@ -216,61 +216,35 @@
   </header>
 
   <section>
-    <div class="sect-label">Injuries</div>
-    <div class="sect-note">Physical, usually from combat or danger — clear when treated or rested.</div>
+    <div class="sect-label">Statuses</div>
+    <div class="sect-note">Four umbrella mechanics cover everything. The flavor comes from what caused it and what it's named as when it's applied — not a bespoke rule per name.</div>
     <table class="ref">
-      <tr><th>Injury</th><th>Effect</th><th>Clears When</th></tr>
-      <tr><td class="name">Twisted Ankle</td><td>Downgrade one tier on anything requiring running, climbing, or quick footwork</td><td>Resting a scene, or splinted</td></tr>
-      <tr><td class="name">Concussion</td><td>Downgrade one tier on anything requiring focus/memory/clear thinking</td><td>Sleeping it off, or treated</td></tr>
-      <tr><td class="name">Broken Finger</td><td>Downgrade one tier on anything requiring fine motor control (locks, phones, tools)</td><td>Splinted/taped</td></tr>
-      <tr><td class="name">Deep Cut</td><td>Take 1 Bleeding stack (see below)</td><td>Bandaged (Lifeguard skill auto-clears)</td></tr>
-      <tr><td class="name">Winded</td><td>Lose your bonus die (skill/Minor/Major) on your next physical action</td><td>One full scene passes</td></tr>
-      <tr><td class="name">Burned Hand</td><td>Downgrade one tier on anything using that hand</td><td>Treated, or 1 full scene</td></tr>
-      <tr><td class="name">Bad Fall</td><td>Downgrade one tier on all physical checks until treated</td><td>Rested + treated</td></tr>
+      <tr><th>Status</th><th>Effect</th><th>Clears When</th></tr>
+      <tr><td class="name">Injured</td><td>Downgrade one tier on a specified category of rolls, named when it's applied</td><td>Whatever narrative action fits the cause — treated, rested, confronted, or a scene passes</td></tr>
+      <tr><td class="name">Possessed</td><td>Skip your next action, or something else controls it instead of you</td><td>Someone else snaps you out of it, or a scene passes</td></tr>
+      <tr><td class="name">Boosted</td><td>Upgrade one tier on your next roll</td><td>Used once, then gone</td></tr>
+      <tr><td class="name">Despair</td><td>Rolls capped at Minor tier — bonuses that would push higher don't apply</td><td>A hope-restoring beat</td></tr>
     </table>
+    <div class="callout design-notes">
+      <b>Injured flavors:</b> twisted ankle (footwork), concussion (focus/memory), broken finger (fine motor), burned hand (that hand), bad fall (all physical), winded (costs your bonus die instead of a full tier), fear (the source is present), grief (the loss is invoked), guilt (chose self-preservation over helping), panic (right after a Critical Failure).<br><br>
+      <b>Rage</b> is a combo, not its own umbrella: Boosted on Brawns-type rolls and Injured on Common Sense-type rolls, both at once, until the scene ends or it's deliberately calmed.
+    </div>
     <div class="bleed-box">
       <span class="tag">Bleeding</span> — a stacking status, not a one-time injury: each stack forces one extra "roll 2d6, keep the lowest" die into your <b>next</b> physical roll, stacking additively. Bandaging removes all stacks at once. A Doomsday Prepper's kit clears one stack automatically per scene, no roll needed — they packed for exactly this.
     </div>
-  </section>
-
-  <section>
-    <div class="sect-label">Statuses</div>
-    <div class="sect-note">Temporary, often supernatural — cleared by a specific in-fiction action, not just time.</div>
-    <table class="ref">
-      <tr><th>Status</th><th>Effect</th><th>Clears When</th></tr>
-      <tr><td class="name">Terrified</td><td>Downgrade one tier on anything while the source of fear is present/visible</td><td>The source leaves, is dealt with, or hidden from</td></tr>
-      <tr><td class="name">Frozen</td><td>Skip your next action entirely</td><td>Someone else acts to snap you out of it</td></tr>
-      <tr><td class="name">Adrenaline Rush</td><td>Upgrade your next roll one tier</td><td>Used once, then expires</td></tr>
-      <tr><td class="name">Cursed (temp.)</td><td>Once, the GM may force a downgrade on a roll of their choice</td><td>Triggers once, then clears</td></tr>
-      <tr><td class="name">Possessed (brief)</td><td>GM narrates your next action instead of you</td><td>End of the GM's chosen beat</td></tr>
-      <tr><td class="name">Hallucinating</td><td>GM inserts one false detail into the scene you must treat as real</td><td>End of scene, or if disbelieved by another PC</td></tr>
-      <tr><td class="name">Isolated</td><td>Can't receive help/assist actions from other PCs</td><td>Physically reunite with the group</td></tr>
-      <tr><td class="name">Marked</td><td>GM can have something locate you once per session, no roll needed</td><td>Session ends, or the mark is removed in-fiction</td></tr>
-      <tr><td class="name">Numb</td><td>Immune to Squeamish/Germaphobe-type Flaw triggers, but also don't notice new Injuries when they happen</td><td>Feeling returns (GM/player call)</td></tr>
-    </table>
-  </section>
-
-  <section>
-    <div class="sect-label">Emotional</div>
-    <div class="sect-note">Concrete versions — each has a specific trigger and a specific fix, not just flavor.</div>
-    <table class="ref">
-      <tr><th>Condition</th><th>Effect</th><th>Clears When</th></tr>
-      <tr><td class="name">Panic Spiral</td><td>After any Critical Failure, your very next roll auto-downgrades one tier too</td><td>That next roll resolves (good or bad)</td></tr>
-      <tr><td class="name">Grief-Struck</td><td>Downgrade one tier whenever the GM/player invokes the specific loss</td><td>Confronted directly, or scene ends</td></tr>
-      <tr><td class="name">Despair</td><td>Cap your rolls at Minor tier — Major bonus doesn't apply even if you have it</td><td>A hope-restoring beat (GM or player-triggered)</td></tr>
-      <tr><td class="name">Rage</td><td>Upgrade Brawns-type rolls one tier, downgrade Common Sense-type rolls one tier</td><td>Scene ends, or deliberately calmed</td></tr>
-      <tr><td class="name">Overwhelmed</td><td>If 2+ statuses/flaws are active at once, add a 3rd automatic downgrade on top</td><td>Whenever you're down to 1 or 0 active statuses</td></tr>
-      <tr><td class="name">Hesitation (Guilt)</td><td>If you choose self-preservation over helping someone, downgrade your very next roll</td><td>Resolves after that one roll</td></tr>
-    </table>
+    <div class="callout design-notes" style="margin-top:6px;">
+      <b>Overwhelmed:</b> if 2+ of the above are active on the same character at once, add a 3rd automatic downgrade on top. Clears once they're back down to 1 or 0 active.
+    </div>
   </section>
 
   <section>
     <div class="sect-label">Design Notes</div>
     <div class="callout design-notes">
       <ul>
-        <li><b>Everything has an exit.</b> Nothing here is permanent or purely additive punishment — every entry has a listed way to clear it. Players need to feel like they can <i>do something</i> about their condition, not just suffer passively.</li>
+        <li><b>Everything has an exit.</b> Every status has a clear way to shed it — players need to feel like they can <i>do something</i> about their condition, not just suffer passively.</li>
         <li><b>Bleeding is the death spiral.</b> It's the one status that gets worse if ignored — everything else is a flat, single-tier hit.</li>
-        <li><b>Overwhelmed is the safety valve.</b> Flaws already trigger tier-downgrades, so a character who's Bleeding <i>and</i> Terrified <i>and</i> has their Flaw active could stack three downgrades. Overwhelmed just names that moment explicitly — and it's a great horror beat ("everything is going wrong at once").</li>
+        <li><b>Overwhelmed is the safety valve.</b> Stack enough of the above — Bleeding, a Flaw trigger, an Injured from a bad fall — and Overwhelmed names that moment explicitly, a great horror beat ("everything is going wrong at once").</li>
+        <li><b>Name it when you apply it.</b> Injured and Boosted don't come with a fixed list of flavors — when one triggers, just say what it affects (a body part, a fear, a roll type) and move on.</li>
       </ul>
     </div>
   </section>
