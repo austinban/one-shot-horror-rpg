@@ -172,6 +172,9 @@
   .tag.common-sense{ background:var(--moss); }
   .tag.wildcard{ background:var(--moss-light); color:var(--ink); }
   .tag.hidden{ background:var(--paper); color:var(--ink); border:1.5px dashed var(--ink); }
+  .tag.good{ background:var(--moss); }
+  .tag.bad{ background:var(--blood); }
+  .tag.neutral{ background:var(--paper-shadow); color:var(--ink); }
 
   .complication{
     font-size:9.5px;
@@ -290,6 +293,9 @@
     .tag.key{ color:var(--pumpkin); border-color:var(--pumpkin); }
     .tag.vote{ color:var(--moss); border-color:var(--moss); }
     .tag.hidden{ border:1.5px dashed var(--ink); }
+    .tag.good{ color:var(--moss); border-color:var(--moss); }
+    .tag.bad{ color:var(--blood); border-color:var(--blood); }
+    .tag.neutral{ color:#4a4438; border-color:var(--paper-shadow); }
     .monologue{ background:#fff !important; }
     @page{ size:letter; margin:0.25in; }
   }
@@ -357,13 +363,22 @@
     <div class="game">
       <div class="game-title"><span class="name">The Wheel</span><span class="tag key">Key 3</span></div>
       <p class="game-vibe">A big prize wheel, its leather flapper clicking against pegs as it spins down. The huckster leans on a hidden foot pedal every time it stops short of the key wedge — a tell visible in his posture if anyone's watching closely.</p>
+      <p class="obstacle"><b>The Six Wedges:</b></p>
+      <ul class="solutions">
+        <li><span class="tag good">The Key</span>Gold paint, chipped bare from decades of hands not quite reaching it. Landing here wins Key 3 outright, no further roll needed.</li>
+        <li><span class="tag good">A Prize</span>A crude cartoon of a grinning duck points off toward the pond stall. Pull blind from the leftover prize pool (pistol, "Health Potion," rabbit's foot, pocket mirror, clown nose).</li>
+        <li><span class="tag neutral">Nothing</span>Just a flat, faded gray — the only wedge with nothing painted on it at all. The huckster shrugs like he expected it.</li>
+        <li><span class="tag good">Spin Again</span>A hand-drawn arrow looping back on itself. Free respin, no token cost.</li>
+        <li><span class="tag bad">Possessed</span>A pair of eyes, crossed out and scratched in later than the rest — like someone added it after learning the hard way. The wheel keeps spinning after it should've stopped, and so do you: Possessed, for a beat.</li>
+        <li><span class="tag bad">The Wheel Bites</span>Splintered wood, dark stains nobody's bothered to sand out. The flapper snaps back hard enough to catch flesh: Injured, that hand.</li>
+      </ul>
       <ul class="solutions">
         <li><span class="tag brains">Brains</span>Watching a spin — his demo, or someone else's turn, free of charge — reveals the tell: he leans into the brake right before the key wedge. Time a shout or a slap on the counter to break his rhythm at that exact moment.</li>
         <li><span class="tag brawns">Brawns</span>Skip the tell entirely — just grab the wheel and force it past the brake.</li>
         <li><span class="tag backflips">Backflips / Skaterboy</span>Fast enough to flick the flapper itself past the sticking point right as it hesitates.</li>
         <li><span class="tag hidden">Hidden</span>Trace the pedal's cable under the counter and jam or cut it before ever spinning — no roll needed once found.</li>
       </ul>
-      <div class="complication"><b>Complication:</b> the wheel has six segments — THE KEY, A PRIZE (pull from the leftover pool), NOTHING, SPIN AGAIN (free respin), POSSESSED (something else takes the wheel, and you, for a beat), and THE WHEEL BITES (the flapper snaps back — Injured, that hand). Beating the rig only guarantees landing where they're aiming; a party that never spots the tell is just gambling on all six.</div>
+      <div class="complication"><b>Complication:</b> beating the rig only guarantees landing where they're aiming; a party that never spots the tell is just gambling on all six wedges.</div>
     </div>
 
     <div class="complication"><b>Complication:</b> failing a game doesn't lock the party out — it just costs a token, and the Barker gets a little nastier over the speakers. As always, enough Brawns can skip the room entirely by tearing the door off its frame instead of collecting all three keys — messier, and worth an Injury roll.</div>
