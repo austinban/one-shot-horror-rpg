@@ -172,9 +172,30 @@
   .tag.common-sense{ background:var(--moss); }
   .tag.wildcard{ background:var(--moss-light); color:var(--ink); }
   .tag.hidden{ background:var(--paper); color:var(--ink); border:1.5px dashed var(--ink); }
-  .tag.good{ background:var(--moss); }
-  .tag.bad{ background:var(--blood); }
-  .tag.neutral{ background:var(--paper-shadow); color:var(--ink); }
+
+  table.ref{
+    width:100%;
+    border-collapse:collapse;
+    font-size:10px;
+    margin:2px 0 8px;
+  }
+  table.ref th{
+    font-family:'Special Elite','Courier New',monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    text-align:left;
+    padding:3px 6px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  table.ref td{
+    padding:3.5px 6px;
+    border-bottom:1px solid var(--paper-shadow);
+    vertical-align:top;
+    line-height:1.35;
+  }
+  table.ref td.name{ font-weight:700; white-space:nowrap; }
+  table.ref tr:nth-child(even){ background:rgba(0,0,0,0.03); }
 
   .complication{
     font-size:9.5px;
@@ -293,9 +314,7 @@
     .tag.key{ color:var(--pumpkin); border-color:var(--pumpkin); }
     .tag.vote{ color:var(--moss); border-color:var(--moss); }
     .tag.hidden{ border:1.5px dashed var(--ink); }
-    .tag.good{ color:var(--moss); border-color:var(--moss); }
-    .tag.bad{ color:var(--blood); border-color:var(--blood); }
-    .tag.neutral{ color:#4a4438; border-color:var(--paper-shadow); }
+    table.ref tr:nth-child(even){ background:none !important; }
     .monologue{ background:#fff !important; }
     @page{ size:letter; margin:0.25in; }
   }
@@ -364,14 +383,15 @@
       <div class="game-title"><span class="name">The Wheel</span><span class="tag key">Key 3</span></div>
       <p class="game-vibe">A big prize wheel, its leather flapper clicking against pegs as it spins down. The huckster leans on a hidden foot pedal every time it stops short of the key wedge — a tell visible in his posture if anyone's watching closely.</p>
       <p class="obstacle"><b>The Six Wedges:</b></p>
-      <ul class="solutions">
-        <li><span class="tag good">The Key</span>Gold paint, chipped bare from decades of hands not quite reaching it. Landing here wins Key 3 outright, no further roll needed.</li>
-        <li><span class="tag good">A Prize</span>A crude cartoon of a grinning duck points off toward the pond stall. Pull blind from the leftover prize pool (pistol, "Health Potion," rabbit's foot, pocket mirror, clown nose).</li>
-        <li><span class="tag neutral">Nothing</span>Just a flat, faded gray — the only wedge with nothing painted on it at all. The huckster shrugs like he expected it.</li>
-        <li><span class="tag good">Spin Again</span>A hand-drawn arrow looping back on itself. Free respin, no token cost.</li>
-        <li><span class="tag bad">Possessed</span>A pair of eyes, crossed out and scratched in later than the rest — like someone added it after learning the hard way. The wheel keeps spinning after it should've stopped, and so do you: Possessed, for a beat.</li>
-        <li><span class="tag bad">The Wheel Bites</span>Splintered wood, dark stains nobody's bothered to sand out. The flapper snaps back hard enough to catch flesh: Injured, that hand.</li>
-      </ul>
+      <table class="ref">
+        <tr><th>Wedge</th><th>Flavor</th><th>Effect</th></tr>
+        <tr><td class="name">The Key</td><td>Gold paint, chipped bare from decades of hands not quite reaching it.</td><td>Wins Key 3 outright, no further roll needed.</td></tr>
+        <tr><td class="name">A Prize</td><td>A crude cartoon of a grinning duck points off toward the pond stall.</td><td>Pull blind from the leftover prize pool (pistol, "Health Potion," rabbit's foot, pocket mirror, clown nose).</td></tr>
+        <tr><td class="name">Nothing</td><td>Just a flat, faded gray — the only wedge with nothing painted on it at all.</td><td>The huckster shrugs like he expected it. Nothing happens.</td></tr>
+        <tr><td class="name">Spin Again</td><td>A hand-drawn arrow looping back on itself.</td><td>Free respin, no token cost.</td></tr>
+        <tr><td class="name">Possessed</td><td>A pair of eyes, crossed out and scratched in later than the rest — like someone added it after learning the hard way.</td><td>The wheel keeps spinning after it should've stopped, and so do you — Possessed, for a beat.</td></tr>
+        <tr><td class="name">The Wheel Bites</td><td>Splintered wood, dark stains nobody's bothered to sand out.</td><td>The flapper snaps back hard enough to catch flesh — Injured, that hand.</td></tr>
+      </table>
       <ul class="solutions">
         <li><span class="tag brains">Brains</span>Watching a spin — his demo, or someone else's turn, free of charge — reveals the tell: he leans into the brake right before the key wedge. Time a shout or a slap on the counter to break his rhythm at that exact moment.</li>
         <li><span class="tag brawns">Brawns</span>Skip the tell entirely — just grab the wheel and force it past the brake.</li>
@@ -382,7 +402,6 @@
     </div>
 
     <div class="complication"><b>Complication:</b> failing a game doesn't lock the party out — it just costs a token, and the Barker gets a little nastier over the speakers. As always, enough Brawns can skip the room entirely by tearing the door off its frame instead of collecting all three keys — messier, and worth an Injury roll.</div>
-    <div class="secret"><b>Secret:</b> underneath each stall counter is a small brass plaque engraved with the name of whoever "won" that game last — nobody in the party. A fourth plaque is screwed into the floor beside the exit door, blank, waiting to be filled in.</div>
     <div class="thread"><b>Sign of him:</b> a half-melted candy wrapper of his favorite brand sits on one of the stall shelves — still warm.</div>
   </section>
 
